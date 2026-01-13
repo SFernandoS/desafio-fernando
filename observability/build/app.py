@@ -1,34 +1,28 @@
 import os
 import logging
 from random import randint
+from typing import Dict
 
-from flask import Flask, jsonify
-from prometheus_flask_exporter import PrometheusMetrics
-
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
+from prometheus_fastapi_instrumentator import Instrumentator
+from prometheus_client import Info
 
 APP_NAME = "dice-api"
 
 
-def create_app() -> Flask:
-    app = Flask(__name__)
+def create_app() -> FastAPI:
+    app = FastAPI()
 
-    app.config["JSON_SORT_KEYS"] = False
+    configure_logging()
 
-    configure_logging(app)
+    # Instrumentação Prometheus
+    instrumentator = Instrumentator()
+    instrumentator.instrument(app).expose(app)
 
-    # Prometheus com label padrão
-    metrics = PrometheusMetrics(
-        app,
-        defaults={
-            "app": APP_NAME
-        }
-    )
-
-    metrics.info(
-        "app_info",
-        "Application info",
-        version=os.getenv("APP_VERSION", "dev"),
-    )
+    # Info metric equivalente
+    info = Info("app_info", "Application info")
+    info.info({"version": os.getenv("APP_VERSION", "dev")})
 
     register_routes(app)
     register_error_handlers(app)
@@ -36,55 +30,62 @@ def create_app() -> Flask:
     return app
 
 
-def configure_logging(app: Flask) -> None:
+def configure_logging() -> None:
     logging.basicConfig(
         level=os.getenv("LOG_LEVEL", "INFO"),
         format="%(asctime)s %(levelname)s %(name)s %(message)s",
     )
-    app.logger.setLevel(logging.getLogger().level)
 
 
-def register_routes(app: Flask) -> None:
-    @app.route("/", methods=["GET"])
-    def roll_dice():
+def register_routes(app: FastAPI) -> None:
+    logger = logging.getLogger(APP_NAME)
+
+    @app.get("/")
+    async def roll_dice() -> Dict[str, int]:
         dice_value = randint(1, 6)
-        app.logger.info(
+        logger.info(
             "Dice rolled",
             extra={"dice_value": dice_value, "app": APP_NAME},
         )
-        return jsonify({"dice_value": dice_value})
+        return {"dice_value": dice_value}
 
-    @app.route("/health", methods=["GET"])
-    def health():
-        return jsonify(
-            {
-                "status": "ok",
-                "app": APP_NAME,
-                "version": os.getenv("APP_VERSION", "dev"),
-            }
-        ), 200
+    @app.get("/health")
+    async def health() -> Dict[str, str]:
+        return {
+            "status": "ok",
+            "app": APP_NAME,
+            "version": os.getenv("APP_VERSION", "dev"),
+        }
 
-    @app.route("/fail", methods=["GET"])
-    def fail():
+    @app.get("/fail")
+    async def fail():
         raise RuntimeError("Intentional failure")
 
 
-def register_error_handlers(app: Flask) -> None:
-    @app.errorhandler(Exception)
-    def handle_exception(error):
-        app.logger.exception("Unhandled exception")
-        return jsonify(
-            {
+def register_error_handlers(app: FastAPI) -> None:
+    logger = logging.getLogger(APP_NAME)
+
+    @app.exception_handler(Exception)
+    async def handle_exception(request: Request, error: Exception):
+        logger.exception("Unhandled exception")
+        return JSONResponse(
+            status_code=500,
+            content={
                 "error": "internal_server_error",
                 "app": APP_NAME,
                 "message": str(error),
-            }
-        ), 500
+            },
+        )
 
+
+app = create_app()
 
 if __name__ == "__main__":
-    app = create_app()
-    app.run(
+    import uvicorn
+
+    uvicorn.run(
+        app,
         host="0.0.0.0",
         port=int(os.getenv("PORT", 5000)),
+        log_level=os.getenv("LOG_LEVEL", "info").lower(),
     )
