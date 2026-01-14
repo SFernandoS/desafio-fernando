@@ -80,7 +80,7 @@ services:
        observability:
 
   otel-collector:
-    image: otel/opentelemetry-collector
+    image: otel/opentelemetry-collector-contrib:latest
     command: ["--config=/etc/otelcol/config.yaml"]
     volumes:
       - ./collector/otc-config.yaml:/etc/otelcol/config.yaml
@@ -132,6 +132,18 @@ services:
     networks:
        observability:
 
+####
+# Loki Logs Backend
+####
+  loki:
+    image: grafana/loki:3.6.1
+    command: -config.file=/etc/loki/loki.yaml
+    volumes:
+      - ./backend/loki/loki.yaml:/etc/loki/loki.yaml
+      - loki_data:/loki
+    networks:
+      observability:
+
 networks:
   observability:
      name: observability
@@ -139,3 +151,4 @@ networks:
 volumes:
     prometheus_data: {}
     grafana_data: {}
+    loki_data: {}

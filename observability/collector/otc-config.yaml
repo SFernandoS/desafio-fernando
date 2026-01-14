@@ -34,11 +34,9 @@ exporters:
     tls:
       insecure: true
 
-  # loki:
-  #   endpoint: http://loki:3100/loki/api/v1/push
-  #   default_labels_enabled:
-  #     service: true
-  #     severity: true
+  otlphttp/loki:
+    endpoint: http://loki:3100/otlp
+
 
   # otlphttp/mimir:
   #   endpoint: http://mimir:9009/otlp
@@ -51,12 +49,12 @@ service:
     traces:
       receivers: [otlp]
       processors: [memory_limiter, resource, batch]
-      exporters: [debug, otlp/tempo]
+      exporters: [otlp/tempo]
 
     logs:
       receivers: [otlp]
       processors: [memory_limiter, resource, batch]
-      exporters: [debug]
+      exporters: [debug, otlphttp/loki]
       # exporters: [loki]
 
     metrics:
