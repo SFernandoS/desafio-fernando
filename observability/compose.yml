@@ -7,8 +7,8 @@ services:
     build:
       context: build
     ports:
-      - 5000:5000      
-    restart: unless-stopped 
+      - 5000:5000
+    restart: unless-stopped
     networks:
        observability:
 
@@ -89,12 +89,48 @@ services:
       - 8888:8888 # Prometheus metrics exposed by the Collector
       - 8889:8889 # Prometheus exporter metrics
       - 13133:13133 # health_check extension
-      - 4317:4317 # OTLP gRPC receiver
-      - 4318:4318 # OTLP http receiver
+      # - 4317:4317 # OTLP gRPC receiver
+      # - 4318:4318 # OTLP http receiver
       - 55679:55679 # zpages extension
     networks:
        observability:
 
+####
+# Tempo Tracing Backend
+####
+
+  init:
+    image: busybox:latest
+    user: root
+    entrypoint:
+      - "chown"
+      - "10001:10001"
+      - "/var/tempo"
+    volumes:
+      - ./tempo-data:/var/tempo
+
+  memcached:
+    image: memcached:1.6.40@sha256:894f7a8383cf110d7370329a50b8520792a9081115d131a6e24179e0d5e6fae5
+    container_name: memcached
+    ports:
+      - "11211:11211"
+    environment:
+      - MEMCACHED_MAX_MEMORY=64m
+      - MEMCACHED_THREADS=4
+
+  tempo:
+    image: grafana/tempo:latest
+    command: ["-config.file=/etc/tempo.yaml"]
+    volumes:
+      - ./backend/tempo/tempo.yaml:/etc/tempo.yaml
+      - ./backend/tempo/overrides.yaml:/etc/overrides.yaml
+      - ./tempo-data:/var/tempo
+    depends_on:
+      - init
+      - memcached
+    restart: unless-stopped
+    networks:
+       observability:
 
 networks:
   observability:

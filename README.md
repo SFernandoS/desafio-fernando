@@ -41,7 +41,7 @@ Alternativamente, você pode optar por desenvolver sua solução em uma infraest
 
 ## Arquitetura Proposta: <img align="center" alt="Lego" height="150" style="border-radius:0px;" src="imgsrc/lego.gif"> 
 
-O ambiente criado para este desafio é composto por uma aplicação Python simples, entregue em uma instância EC2 usando docker compose, a aplicação utiliza o framework flask e está encapsulada em Docker.
+o ambiente criado para este desafio é composto por uma aplicação Python simples, entregue em uma instância EC2 usando docker compose, a aplicação utiliza o framework FastAPI e está encapsulada em Docker.
 
 ## Instalação na conta de testes na AWS
 
@@ -90,9 +90,9 @@ Conforme citado para o desafio criamos uma arquitetura simples de referência qu
 
 | LoadBalancer | Descrição                                    | Path        | Porta | Função                                                                                            |
 | -------------|----------------------------------------------|-------------|-------|---------------------------------------------------------------------------------------------------|
-| Server       | Endpoint com loadbalancer da aplicação flask | /           | 80    | Aplicação rolar dados, retorna um núm. randômico entre 1 e 6                                      |
-| Server       | Endpoint com loadbalancer da aplicação flask | /metrics    | 80    | Retorna métricas a partir da biblioteca prometheus-flask-exporter                                 |
-| Grafana      | Endpoint com loadbalancer do Grafana         | /           | 80    | Grafana rodando em contêiner com ingestão das métricas da aplicação flask (Usuário e Senha admin) |
+| Server       | Endpoint com loadbalancer da aplicação FastAPI | /           | 80    | Aplicação rolar dados, retorna um núm. randômico entre 1 e 6                                      |
+| Server       | Endpoint com loadbalancer da aplicação FastAPI | /metrics    | 80    | Retorna métricas a partir da biblioteca prometheus-fastapi-instrumentator                          |
+| Grafana      | Endpoint com loadbalancer do Grafana         | /           | 80    | Grafana rodando em contêiner com ingestão das métricas da aplicação FastAPI (Usuário e Senha admin) |
 
 Utilizando o endereço público da instância na AWS também é possível acessar os endpoints do node-exporter na porta 9100 e o endpoint do cAdvisor na path /containers e porta 8080.
 
