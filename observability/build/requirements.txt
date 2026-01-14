@@ -2,3 +2,5 @@ fastapi
 uvicorn[standard]
 prometheus-fastapi-instrumentator
 prometheus-client
+opentelemetry-distro
+opentelemetry-exporter-otlp
