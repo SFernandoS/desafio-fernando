@@ -14,11 +14,6 @@ scrape_configs:
     static_configs:
     - targets: ['cadvisor:8080']
 
-  - job_name: 'server'
-    scrape_interval: 30s
-    static_configs:
-    - targets: ['server:5000']
-
   - job_name: 'node-exporter'
     scrape_interval: 30s
     static_configs:
