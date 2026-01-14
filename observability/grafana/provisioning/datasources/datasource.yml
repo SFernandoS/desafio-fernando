@@ -1,32 +1,47 @@
 apiVersion: 1
 
 datasources:
-  - name: Prometheus
-    uid: PBFA97CFB590B2093
+  - uid: prometheus
+    name: Prometheus
     type: prometheus
     access: proxy
     url: http://prometheus:9090
-    isDefault: true
+    isDefault: false
 
-  - name: Loki
-    uid: ffa46iuhdkw00c
+  - uid: loki
+    name: Loki
     type: loki
     access: proxy
     url: http://loki:3100
+    isDefault: false
+    editable: true
     jsonData:
       tlsSkipVerify: true
 
-  - name: Tempo
-    uid: bfa46mxdi4cu8a
+  - uid: mimir
+    name: Mimir
+    type: prometheus
+    access: proxy
+    url: http://mimir:9009/prometheus
+    isDefault: true
+    editable: true
+    jsonData:
+      tlsSkipVerify: true
+
+  - uid: tempo
+    name: Tempo
     type: tempo
     access: proxy
     url: http://tempo:3200
+    isDefault: false
+    editable: true
     jsonData:
       tlsSkipVerify: true
-
       tracesToLogsV2:
-        datasourceUid: ffa46iuhdkw00c
-        spanStartTimeShift: "-5m"
-        spanEndTimeShift: "5m"
+        datasourceUid: loki
         filterByTraceID: true
         filterBySpanID: true
+        spanStartTimeShift: -5m
+        spanEndTimeShift: 5m
+      tracesToMetrics:
+        datasourceUid: mimir

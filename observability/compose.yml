@@ -144,6 +144,20 @@ services:
     networks:
       observability:
 
+####
+# Mimir Metrics Backend
+####
+
+  mimir:
+    image: grafana/mimir:latest
+    command: -config.file=/etc/mimir/mimir.yaml
+    volumes:
+      - ./backend/mimir/mimir.yaml:/etc/mimir/mimir.yaml
+      - mimir_data:/mimir
+    networks:
+      observability:
+
+
 networks:
   observability:
      name: observability
@@ -152,3 +166,4 @@ volumes:
     prometheus_data: {}
     grafana_data: {}
     loki_data: {}
+    mimir_data: {}
