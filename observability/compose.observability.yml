@@ -1,29 +1,4 @@
-version: '3.8'
-
 services:
-
-  go-api:
-    image: go-api
-    build:
-      context: build/go
-    ports:
-      - 8081:8080
-    restart: unless-stopped
-    networks:
-      observability:
-    depends_on:
-      - otel-collector
-      - pyroscope
-  server:
-    image: server
-    build:
-      context: build/python
-    ports:
-      - 5000:5000
-    restart: unless-stopped
-    networks:
-       observability:
-
   prometheus:
     image: prom/prometheus:v3.9.1
     volumes:

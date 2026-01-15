@@ -1,0 +1,41 @@
+services:
+
+  go-api:
+    image: go-api
+    build:
+      context: apps/go
+    ports:
+      - 8081:8080
+    restart: unless-stopped
+    networks:
+      observability:
+
+  api-gateway:
+    build: ./apps/python/api-gateway
+    ports: ["5000:5000"]
+    networks:
+      observability:
+
+  dice-service:
+    build: ./apps/python/dice-service
+    networks:
+      observability:
+
+  random-service:
+    build: ./apps/python/random-service
+    networks:
+      observability:
+
+  rules-service:
+    build: ./apps/python/rules-service
+    networks:
+      observability:
+
+  storage-service:
+    build: ./apps/python/storage-service
+    networks:
+      observability:
+
+networks:
+  observability:
+     name: observability

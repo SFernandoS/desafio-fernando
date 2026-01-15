@@ -7,6 +7,7 @@ datasources:
     access: proxy
     url: http://prometheus:9090
     isDefault: false
+    editable: false
 
   - uid: loki
     name: Loki
@@ -26,6 +27,20 @@ datasources:
     isDefault: true
     editable: true
     jsonData:
+      prometheusType: Mimir
+      prometheusVersion: "2.9.1"
+      httpMethod: POST
+      tlsSkipVerify: true
+      exemplarTraceIdDestinations: []
+
+  - uid: ffa82xeb4fz7kb
+    name: Pyroscope
+    type: grafana-pyroscope-datasource
+    access: proxy
+    url: http://pyroscope:4040
+    isDefault: false
+    editable: true
+    jsonData:
       tlsSkipVerify: true
 
   - uid: tempo
@@ -37,11 +52,40 @@ datasources:
     editable: true
     jsonData:
       tlsSkipVerify: true
+
+      # ---- Trace search defaults
+      search:
+        filters:
+          - id: service-name
+            scope: resource
+            tag: service.name
+            operator: "="
+          - id: span-name
+            scope: span
+            tag: name
+            operator: "="
+
+      traceQuery:
+        timeShiftEnabled: false
+
+      nodeGraph:
+        enabled: true
+
+      serviceGraph:
+        datasourceUid: mimir
+
+      serviceMap:
+        datasourceUid: mimir
+
       tracesToLogsV2:
         datasourceUid: loki
         filterByTraceID: true
         filterBySpanID: true
-        spanStartTimeShift: -5m
-        spanEndTimeShift: 5m
+        spanStartTimeShift: "-5m"
+        spanEndTimeShift: "5m"
+
       tracesToMetrics:
         datasourceUid: mimir
+
+      tracesToProfiles:
+        datasourceUid: ffa82xeb4fz7kb

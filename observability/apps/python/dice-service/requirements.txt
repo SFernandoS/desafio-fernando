@@ -1,5 +1,6 @@
 fastapi
-uvicorn[standard]
-prometheus-fastapi-instrumentator
+uvicorn
+requests
 opentelemetry-distro
 opentelemetry-exporter-otlp
+opentelemetry-instrumentation-fastapi
