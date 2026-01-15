@@ -34,11 +34,18 @@ exporters:
     tls:
       insecure: true
 
-  otlphttp/loki:
-    endpoint: http://loki:3100/otlp
+  otlp/loki:
+    endpoint: loki:3100
+    tls:
+      insecure: true
 
-  otlphttp/mimir:
-    endpoint: http://mimir:9009/otlp
+  prometheusremotewrite/mimir:
+    endpoint: http://mimir:9009/api/v1/push
+
+  otlp/pyroscope:
+    endpoint: pyroscope:4040
+    tls:
+      insecure: true
 
 
 service:
@@ -52,9 +59,13 @@ service:
     logs:
       receivers: [otlp]
       processors: [memory_limiter, resource, batch]
-      exporters: [otlphttp/loki]
+      exporters: [otlp/loki]
 
     metrics:
       receivers: [otlp]
       processors: [memory_limiter, resource, batch]
-      exporters: [otlphttp/mimir]
+      exporters: [prometheusremotewrite/mimir]
+
+    profiles:
+      receivers: [otlp]
+      exporters: [debug,otlp/pyroscope]

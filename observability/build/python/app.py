@@ -5,8 +5,6 @@ from typing import Dict
 
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
-from prometheus_fastapi_instrumentator import Instrumentator
-from prometheus_client import Info
 
 APP_NAME = "dice-api"
 
@@ -15,14 +13,6 @@ def create_app() -> FastAPI:
     app = FastAPI()
 
     configure_logging()
-
-    # Instrumentação Prometheus
-    instrumentator = Instrumentator()
-    instrumentator.instrument(app).expose(app)
-
-    # Info metric equivalente
-    info = Info("app_info", "Application info")
-    info.info({"version": os.getenv("APP_VERSION", "dev")})
 
     register_routes(app)
     register_error_handlers(app)

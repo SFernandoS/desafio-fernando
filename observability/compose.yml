@@ -2,10 +2,22 @@ version: '3.8'
 
 services:
 
+  go-api:
+    image: go-api
+    build:
+      context: build/go
+    ports:
+      - 8081:8080
+    restart: unless-stopped
+    networks:
+      observability:
+    depends_on:
+      - otel-collector
+      - pyroscope
   server:
     image: server
     build:
-      context: build
+      context: build/python
     ports:
       - 5000:5000
     restart: unless-stopped
@@ -80,8 +92,10 @@ services:
        observability:
 
   otel-collector:
-    image: otel/opentelemetry-collector-contrib:latest
-    command: ["--config=/etc/otelcol/config.yaml"]
+    image: otel/opentelemetry-collector-contrib:0.143.0
+    command:
+      - "--config=/etc/otelcol/config.yaml"
+      - "--feature-gates=service.profilesSupport"
     volumes:
       - ./collector/otc-config.yaml:/etc/otelcol/config.yaml
     ports:
@@ -94,6 +108,8 @@ services:
       - 55679:55679 # zpages extension
     networks:
        observability:
+    depends_on:
+      - pyroscope
 
 ####
 # Tempo Tracing Backend
@@ -157,6 +173,17 @@ services:
     networks:
       observability:
 
+####
+# Pyroscope Profiling Backend
+####
+  pyroscope:
+    image: grafana/pyroscope:latest
+    command:
+      - "-self-profiling.disable-push=true"
+    ports:
+      - "4040:4040"
+    networks:
+      observability:
 
 networks:
   observability:
