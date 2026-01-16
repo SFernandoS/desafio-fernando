@@ -126,3 +126,32 @@ make down      # derruba todo o ambiente
 make rebuild   # recria tudo do zero
 make logs      # acompanha logs das aplicações
 ```
+
+### Interfaces e Acessos (UI)
+
+Após subir o ambiente, as seguintes interfaces ficam disponíveis via `localhost`:
+
+---
+
+#### Aplicação (API Gateway)
+- **API:** http://localhost:5000/roll
+- **Swagger:** http://localhost:5000/docs
+
+Ponto de entrada da aplicação.
+A maioria dos endpoints **simula erros propositalmente** para gerar sinais de observabilidade.
+
+---
+
+#### Grafana
+- **URL:** http://localhost:3000
+- **Usuário/Senha:** `admin` / `admin`
+
+Interface central para visualização de métricas, logs, traces e profiling.
+
+---
+
+#### Prometheus
+- **URL:** http://localhost:9090
+
+Usado para inspeção direta de métricas, scrapes e regras.
+
