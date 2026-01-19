@@ -6,12 +6,12 @@ up:
 
 down:
 
-	docker compose -f compose.observability.yml down
-	docker compose -f compose.apps.yml down
+	docker compose -f compose.observability.yml down -v
+	docker compose -f compose.apps.yml down -v
 
 rebuild:
-	docker compose -f compose.apps.yml down
-	docker compose -f compose.observability.yml down
+	docker compose -f compose.apps.yml down -v
+	docker compose -f compose.observability.yml down -v
 	docker compose -f compose.observability.yml up -d
 	docker compose -f compose.apps.yml up -d --build
 

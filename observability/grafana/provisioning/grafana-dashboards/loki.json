@@ -26,7 +26,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 0,
+  "id": 3,
   "links": [],
   "panels": [
     {
@@ -999,1022 +999,12 @@
       "type": "stat"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "links": [],
-          "mappings": [
-            {
-              "options": {
-                "null": {
-                  "index": 0,
-                  "text": "N/A"
-                }
-              },
-              "type": "value"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "binBps"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 6,
-        "x": 18,
-        "y": 4
-      },
-      "id": 188,
-      "interval": "$interval",
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.3.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "expr": "sum(rate(loki_ingester_chunk_stored_bytes_total{job=\"$jobs\",instance=\"$host:$instance\"}[$__rate_interval])) by (tenant)",
-          "instant": false,
-          "interval": "$interval",
-          "legendFormat": "{{ tenant }}",
-          "refId": "A"
-        }
-      ],
-      "title": "Ingester Chunks Volume",
-      "transformations": [
-        {
-          "id": "calculateField",
-          "options": {}
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {},
-            "indexByName": {},
-            "renameByName": {
-              "fake": "Default Tenant"
-            }
-          }
-        }
-      ],
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "links": [],
-          "mappings": [
-            {
-              "options": {
-                "null": {
-                  "index": 0,
-                  "text": "N/A"
-                }
-              },
-              "type": "value"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 0,
-        "y": 10
-      },
-      "id": 23,
-      "interval": "$interval",
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.3.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "expr": "sum(loki_store_series_total{job=\"$jobs\",instance=\"$host:$instance\"}) by(status)",
-          "instant": false,
-          "interval": "$interval",
-          "legendFormat": "{{ status }}",
-          "refId": "A"
-        }
-      ],
-      "title": "Store Series",
-      "transformations": [
-        {
-          "id": "calculateField",
-          "options": {}
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {},
-            "indexByName": {},
-            "renameByName": {
-              "discarded": "Discarded",
-              "matched": "Matched"
-            }
-          }
-        }
-      ],
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "links": [],
-          "mappings": [
-            {
-              "options": {
-                "null": {
-                  "index": 0,
-                  "text": "N/A"
-                }
-              },
-              "type": "value"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 3,
-        "y": 10
-      },
-      "id": 131,
-      "interval": "$interval",
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.3.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "expr": "sum(loki_store_chunks_downloaded_total{job=\"$jobs\",instance=\"$host:$instance\"}) by(status)",
-          "instant": false,
-          "interval": "$interval",
-          "legendFormat": "{{ status }}",
-          "refId": "A"
-        }
-      ],
-      "title": "Store Chunks Downloaded",
-      "transformations": [
-        {
-          "id": "calculateField",
-          "options": {}
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {},
-            "indexByName": {},
-            "renameByName": {
-              "discarded": "Discarded",
-              "matched": "Matched"
-            }
-          }
-        }
-      ],
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "links": [],
-          "mappings": [
-            {
-              "options": {
-                "null": {
-                  "index": 0,
-                  "text": "N/A"
-                }
-              },
-              "type": "value"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 6,
-        "y": 10
-      },
-      "id": 137,
-      "interval": "$interval",
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.3.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "expr": "sum(loki_index_chunk_refs_total{job=\"$jobs\",instance=\"$host:$instance\"}) by(status)",
-          "instant": false,
-          "interval": "$interval",
-          "legendFormat": "{{ status }}",
-          "refId": "A"
-        }
-      ],
-      "title": "Index Chunks Downloaded",
-      "transformations": [
-        {
-          "id": "calculateField",
-          "options": {}
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {},
-            "indexByName": {},
-            "renameByName": {
-              "discarded": "Discarded",
-              "matched": "Matched"
-            }
-          }
-        }
-      ],
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "links": [],
-          "mappings": [
-            {
-              "options": {
-                "null": {
-                  "index": 0,
-                  "text": "N/A"
-                }
-              },
-              "type": "value"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 9,
-        "y": 10
-      },
-      "id": 231,
-      "interval": "$interval",
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.3.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "expr": "histogram_quantile(0.95, sum(rate(loki_ingester_chunk_size_bytes_bucket{job=\"$jobs\",instance=\"$host:$instance\"}[$__rate_interval])) by (le))",
-          "hide": false,
-          "instant": false,
-          "interval": "$interval",
-          "legendFormat": "Chunk Size",
-          "refId": "A"
-        }
-      ],
-      "title": "Ingester Chunk Size",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "links": [],
-          "mappings": [
-            {
-              "options": {
-                "null": {
-                  "index": 0,
-                  "text": "N/A"
-                }
-              },
-              "type": "value"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 12,
-        "y": 10
-      },
-      "id": 232,
-      "interval": "$interval",
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.3.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "expr": "histogram_quantile(0.95, sum(rate(loki_ingester_chunk_compression_ratio_bucket{job=\"$jobs\",instance=\"$host:$instance\"}[$__rate_interval])) by (le))",
-          "hide": false,
-          "instant": false,
-          "interval": "$interval",
-          "legendFormat": "Compression Ratio",
-          "refId": "A"
-        }
-      ],
-      "title": "Ingester Chunk Compression",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "links": [],
-          "mappings": [
-            {
-              "options": {
-                "null": {
-                  "index": 0,
-                  "text": "N/A"
-                }
-              },
-              "type": "value"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "ops"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 9,
-        "x": 15,
-        "y": 10
-      },
-      "id": 233,
-      "interval": "$interval",
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.3.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "expr": "sum(rate(loki_ingester_streams_created_total{job=\"$jobs\",instance=\"$host:$instance\"}[$__rate_interval])) by (tenant)",
-          "hide": false,
-          "instant": false,
-          "interval": "$interval",
-          "legendFormat": "Create / {{ tenant }}",
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "expr": "sum(rate(loki_ingester_streams_removed_total{job=\"$jobs\",instance=\"$host:$instance\"}[$__rate_interval])) by (tenant)",
-          "hide": false,
-          "instant": false,
-          "interval": "$interval",
-          "legendFormat": "Delete / {{ tenant }}",
-          "refId": "B"
-        }
-      ],
-      "title": "Ingester Stream Operations",
-      "transformations": [
-        {
-          "id": "calculateField",
-          "options": {}
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {},
-            "indexByName": {},
-            "renameByName": {
-              "Create / fake": "Create / Default Tenant",
-              "Delete / fake": "Delete / Default Tenant",
-              "Store / fake": "Store / Default Tenant"
-            }
-          }
-        }
-      ],
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "links": [],
-          "mappings": [
-            {
-              "options": {
-                "null": {
-                  "index": 0,
-                  "text": "N/A"
-                }
-              },
-              "type": "value"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "ops"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 6,
-        "x": 0,
-        "y": 13
-      },
-      "id": 236,
-      "interval": "$interval",
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.3.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "expr": "sum(rate(loki_chunk_store_fetched_chunks_total{job=\"$jobs\",instance=\"$host:$instance\"}[$__rate_interval])) by (user)",
-          "hide": false,
-          "instant": false,
-          "interval": "$interval",
-          "legendFormat": "{{ user}}",
-          "refId": "A"
-        }
-      ],
-      "title": "Store Operations Fetched",
-      "transformations": [
-        {
-          "id": "calculateField",
-          "options": {}
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {},
-            "indexByName": {},
-            "renameByName": {
-              "Create / fake": "Create / Default Tenant",
-              "Delete / fake": "Delete / Default Tenant",
-              "Fetch / fake": "Fetch / Default Tenant",
-              "Store / fake": "Store / Default Tenant",
-              "fake": "Default Tenant"
-            }
-          }
-        }
-      ],
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "links": [],
-          "mappings": [
-            {
-              "options": {
-                "null": {
-                  "index": 0,
-                  "text": "N/A"
-                }
-              },
-              "type": "value"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "ops"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 6,
-        "x": 6,
-        "y": 13
-      },
-      "id": 237,
-      "interval": "$interval",
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.3.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "expr": "sum(rate(loki_chunk_store_stored_chunks_total{job=\"$jobs\",instance=\"$host:$instance\"}[$__rate_interval])) by (user)",
-          "hide": false,
-          "instant": false,
-          "interval": "$interval",
-          "legendFormat": "{{ user}}",
-          "refId": "A"
-        }
-      ],
-      "title": "Store Operations Stored",
-      "transformations": [
-        {
-          "id": "calculateField",
-          "options": {}
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {},
-            "indexByName": {},
-            "renameByName": {
-              "Create / fake": "Create / Default Tenant",
-              "Delete / fake": "Delete / Default Tenant",
-              "Fetch / fake": "Default Tenant",
-              "Store / fake": "Store / Default Tenant",
-              "fake": "Default Tenant"
-            }
-          }
-        }
-      ],
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "links": [],
-          "mappings": [
-            {
-              "options": {
-                "null": {
-                  "index": 0,
-                  "text": "N/A"
-                }
-              },
-              "type": "value"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "binBps"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 6,
-        "x": 12,
-        "y": 13
-      },
-      "id": 239,
-      "interval": "$interval",
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.3.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "expr": "rate(loki_chunk_store_stored_chunk_bytes_total{job=\"$jobs\",instance=\"$host:$instance\"}[$__rate_interval])",
-          "hide": false,
-          "instant": false,
-          "interval": "$interval",
-          "legendFormat": "{{ user}}",
-          "refId": "A"
-        }
-      ],
-      "title": "Store Volume Stored",
-      "transformations": [
-        {
-          "id": "calculateField",
-          "options": {}
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {},
-            "indexByName": {},
-            "renameByName": {
-              "Create / fake": "Create / Default Tenant",
-              "Delete / fake": "Delete / Default Tenant",
-              "Fetch / fake": "Fetch / Default Tenant",
-              "Store / fake": "Store / Default Tenant",
-              "fake": "Default Tenant"
-            }
-          }
-        }
-      ],
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "links": [],
-          "mappings": [
-            {
-              "options": {
-                "null": {
-                  "index": 0,
-                  "text": "N/A"
-                }
-              },
-              "type": "value"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "binBps"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 6,
-        "x": 18,
-        "y": 13
-      },
-      "id": 238,
-      "interval": "$interval",
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.3.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "expr": "rate(loki_chunk_store_fetched_chunk_bytes_total{job=\"$jobs\",instance=\"$host:$instance\"}[$__rate_interval])",
-          "hide": false,
-          "instant": false,
-          "interval": "$interval",
-          "legendFormat": "{{ user}}",
-          "refId": "A"
-        }
-      ],
-      "title": "Store Volume Fetched",
-      "transformations": [
-        {
-          "id": "calculateField",
-          "options": {}
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {},
-            "indexByName": {},
-            "renameByName": {
-              "Create / fake": "Create / Default Tenant",
-              "Delete / fake": "Delete / Default Tenant",
-              "Fetch / fake": "Fetch / Default Tenant",
-              "Store / fake": "Store / Default Tenant",
-              "fake": "Default Tenant"
-            }
-          }
-        }
-      ],
-      "type": "stat"
-    },
-    {
       "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 16
+        "y": 10
       },
       "id": 143,
       "panels": [],
@@ -2084,7 +1074,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 17
+        "y": 11
       },
       "id": 151,
       "options": {
@@ -2187,7 +1177,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 17
+        "y": 11
       },
       "id": 128,
       "options": {
@@ -2290,7 +1280,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 25
+        "y": 19
       },
       "id": 153,
       "options": {
@@ -2393,7 +1383,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 25
+        "y": 19
       },
       "id": 152,
       "options": {
@@ -2496,7 +1486,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 33
+        "y": 27
       },
       "id": 96,
       "options": {
@@ -2573,7 +1563,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 41
+        "y": 35
       },
       "id": 114,
       "panels": [],
@@ -2643,7 +1633,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 42
+        "y": 36
       },
       "id": 115,
       "options": {
@@ -2746,7 +1736,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 42
+        "y": 36
       },
       "id": 116,
       "options": {
@@ -2849,7 +1839,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 50
+        "y": 44
       },
       "id": 118,
       "options": {
@@ -2961,7 +1951,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 50
+        "y": 44
       },
       "id": 119,
       "options": {
@@ -3007,7 +1997,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 58
+        "y": 52
       },
       "id": 108,
       "panels": [],
@@ -3077,7 +2067,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 59
+        "y": 53
       },
       "id": 109,
       "options": {
@@ -3192,7 +2182,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 59
+        "y": 53
       },
       "id": 110,
       "options": {
@@ -3307,7 +2297,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 67
+        "y": 61
       },
       "id": 111,
       "options": {
@@ -3365,7 +2355,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 75
+        "y": 69
       },
       "id": 127,
       "panels": [],
@@ -3435,7 +2425,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 76
+        "y": 70
       },
       "id": 130,
       "options": {
@@ -3547,7 +2537,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 76
+        "y": 70
       },
       "id": 138,
       "options": {
@@ -3689,7 +2679,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 84
+        "y": 78
       },
       "id": 201,
       "options": {
@@ -3792,7 +2782,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 84
+        "y": 78
       },
       "id": 202,
       "options": {
@@ -3895,7 +2885,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 92
+        "y": 86
       },
       "id": 228,
       "options": {
@@ -3941,7 +2931,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 100
+        "y": 94
       },
       "id": 174,
       "panels": [],
@@ -4011,7 +3001,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 101
+        "y": 95
       },
       "id": 189,
       "options": {
@@ -4114,7 +3104,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 101
+        "y": 95
       },
       "id": 185,
       "options": {
@@ -4252,7 +3242,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 109
+        "y": 103
       },
       "id": 175,
       "options": {
@@ -4403,7 +3393,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 109
+        "y": 103
       },
       "id": 177,
       "options": {
@@ -4515,7 +3505,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 117
+        "y": 111
       },
       "id": 183,
       "options": {
@@ -4644,7 +3634,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 117
+        "y": 111
       },
       "id": 176,
       "options": {
@@ -4747,7 +3737,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 125
+        "y": 119
       },
       "id": 180,
       "options": {
@@ -4850,7 +3840,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 125
+        "y": 119
       },
       "id": 190,
       "options": {
@@ -4953,7 +3943,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 133
+        "y": 127
       },
       "id": 184,
       "options": {
@@ -5056,7 +4046,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 133
+        "y": 127
       },
       "id": 178,
       "options": {
@@ -5159,7 +4149,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 141
+        "y": 135
       },
       "id": 186,
       "options": {
@@ -5262,7 +4252,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 141
+        "y": 135
       },
       "id": 187,
       "options": {
@@ -5374,7 +4364,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 149
+        "y": 143
       },
       "id": 194,
       "options": {
@@ -5477,7 +4467,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 149
+        "y": 143
       },
       "id": 179,
       "options": {
@@ -5580,7 +4570,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 157
+        "y": 151
       },
       "id": 181,
       "options": {
@@ -5683,7 +4673,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 157
+        "y": 151
       },
       "id": 182,
       "options": {
@@ -5786,7 +4776,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 165
+        "y": 159
       },
       "id": 196,
       "options": {
@@ -5911,7 +4901,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 165
+        "y": 159
       },
       "id": 193,
       "options": {
@@ -6023,7 +5013,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 173
+        "y": 167
       },
       "id": 197,
       "options": {
@@ -6174,7 +5164,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 173
+        "y": 167
       },
       "id": 200,
       "options": {
@@ -6324,7 +5314,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 181
+        "y": 175
       },
       "id": 198,
       "options": {
@@ -6462,7 +5452,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 181
+        "y": 175
       },
       "id": 199,
       "options": {
@@ -6587,7 +5577,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 189
+        "y": 183
       },
       "id": 218,
       "options": {
@@ -6690,7 +5680,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 189
+        "y": 183
       },
       "id": 229,
       "options": {
@@ -6736,7 +5726,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 197
+        "y": 191
       },
       "id": 121,
       "panels": [],
@@ -6806,7 +5796,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 198
+        "y": 192
       },
       "id": 124,
       "options": {
@@ -6946,7 +5936,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 198
+        "y": 192
       },
       "id": 217,
       "options": {
@@ -7012,7 +6002,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 206
+        "y": 200
       },
       "id": 122,
       "maxDataPoints": 50,
@@ -7160,7 +6150,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 206
+        "y": 200
       },
       "id": 123,
       "options": {
@@ -7215,7 +6205,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 214
+        "y": 208
       },
       "id": 140,
       "panels": [],
@@ -7285,7 +6275,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 215
+        "y": 209
       },
       "id": 148,
       "options": {
@@ -7388,7 +6378,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 215
+        "y": 209
       },
       "id": 150,
       "options": {
@@ -7491,7 +6481,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 223
+        "y": 217
       },
       "id": 125,
       "options": {
@@ -7594,7 +6584,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 223
+        "y": 217
       },
       "id": 147,
       "options": {
@@ -7697,7 +6687,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 231
+        "y": 225
       },
       "id": 141,
       "options": {
@@ -7800,7 +6790,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 231
+        "y": 225
       },
       "id": 149,
       "options": {
@@ -7903,7 +6893,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 239
+        "y": 233
       },
       "id": 146,
       "options": {
@@ -7949,7 +6939,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 247
+        "y": 241
       },
       "id": 204,
       "panels": [],
@@ -8019,7 +7009,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 248
+        "y": 242
       },
       "id": 206,
       "options": {
@@ -8122,7 +7112,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 248
+        "y": 242
       },
       "id": 210,
       "options": {
@@ -8238,7 +7228,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 256
+        "y": 250
       },
       "id": 211,
       "options": {
@@ -8341,7 +7331,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 256
+        "y": 250
       },
       "id": 212,
       "options": {
@@ -8444,7 +7434,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 264
+        "y": 258
       },
       "id": 213,
       "options": {
@@ -8560,7 +7550,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 264
+        "y": 258
       },
       "id": 209,
       "options": {
@@ -8715,7 +7705,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 272
+        "y": 266
       },
       "id": 208,
       "options": {
@@ -8870,7 +7860,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 272
+        "y": 266
       },
       "id": 219,
       "options": {
@@ -8999,7 +7989,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 280
+        "y": 274
       },
       "id": 215,
       "options": {
@@ -9154,7 +8144,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 280
+        "y": 274
       },
       "id": 214,
       "options": {
@@ -9257,7 +8247,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 288
+        "y": 282
       },
       "id": 216,
       "options": {
@@ -9368,7 +8358,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 288
+        "y": 282
       },
       "id": 207,
       "options": {
@@ -9471,7 +8461,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 296
+        "y": 290
       },
       "id": 205,
       "options": {
@@ -9574,7 +8564,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 296
+        "y": 290
       },
       "id": 220,
       "options": {
@@ -9677,7 +8667,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 304
+        "y": 298
       },
       "id": 221,
       "options": {
@@ -9845,7 +8835,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 304
+        "y": 298
       },
       "id": 222,
       "options": {
@@ -9891,7 +8881,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 312
+        "y": 306
       },
       "id": 224,
       "panels": [],
@@ -9961,7 +8951,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 313
+        "y": 307
       },
       "id": 225,
       "options": {
@@ -10064,7 +9054,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 313
+        "y": 307
       },
       "id": 226,
       "options": {
@@ -10180,7 +9170,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 321
+        "y": 315
       },
       "id": 227,
       "options": {
@@ -10226,7 +9216,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 329
+        "y": 323
       },
       "id": 133,
       "panels": [],
@@ -10296,7 +9286,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 330
+        "y": 324
       },
       "id": 135,
       "options": {
@@ -10438,7 +9428,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 330
+        "y": 324
       },
       "id": 134,
       "options": {
@@ -10580,7 +9570,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 338
+        "y": 332
       },
       "id": 136,
       "options": {
@@ -10683,7 +9673,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 338
+        "y": 332
       },
       "id": 165,
       "options": {
@@ -10812,7 +9802,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 346
+        "y": 340
       },
       "id": 166,
       "options": {
@@ -10937,7 +9927,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 346
+        "y": 340
       },
       "id": 167,
       "options": {
@@ -11025,7 +10015,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 354
+        "y": 348
       },
       "id": 163,
       "maxDataPoints": 50,
@@ -11184,7 +10174,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 354
+        "y": 348
       },
       "id": 156,
       "options": {
@@ -11250,7 +10240,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 362
+        "y": 356
       },
       "id": 154,
       "maxDataPoints": 50,
@@ -11409,7 +10399,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 362
+        "y": 356
       },
       "id": 164,
       "options": {
@@ -11475,7 +10465,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 370
+        "y": 364
       },
       "id": 159,
       "maxDataPoints": 50,
@@ -11634,7 +10624,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 370
+        "y": 364
       },
       "id": 160,
       "options": {
@@ -11700,7 +10690,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 378
+        "y": 372
       },
       "id": 157,
       "maxDataPoints": 50,
@@ -11859,7 +10849,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 378
+        "y": 372
       },
       "id": 158,
       "options": {
@@ -11925,7 +10915,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 386
+        "y": 380
       },
       "id": 161,
       "maxDataPoints": 50,
@@ -12084,7 +11074,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 386
+        "y": 380
       },
       "id": 162,
       "options": {
@@ -12130,7 +11120,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 394
+        "y": 388
       },
       "id": 170,
       "panels": [],
@@ -12200,7 +11190,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 395
+        "y": 389
       },
       "id": 171,
       "options": {
@@ -12325,7 +11315,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 395
+        "y": 389
       },
       "id": 172,
       "options": {
@@ -12380,7 +11370,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 403
+        "y": 397
       },
       "id": 83,
       "panels": [],
@@ -12450,7 +11440,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 404
+        "y": 398
       },
       "id": 168,
       "options": {
@@ -12575,7 +11565,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 404
+        "y": 398
       },
       "id": 91,
       "options": {
@@ -12642,7 +11632,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 412
+        "y": 406
       },
       "id": 94,
       "maxDataPoints": 50,
@@ -12744,7 +11734,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 420
+        "y": 414
       },
       "id": 104,
       "panels": [],
@@ -12818,7 +11808,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 421
+        "y": 415
       },
       "id": 92,
       "options": {
@@ -12976,7 +11966,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 421
+        "y": 415
       },
       "id": 93,
       "options": {
@@ -13169,7 +12159,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 429
+        "y": 423
       },
       "id": 95,
       "options": {
@@ -13251,7 +12241,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 429
+        "y": 423
       },
       "id": 89,
       "maxDataPoints": 50,
@@ -13364,7 +12354,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 437
+        "y": 431
       },
       "id": 88,
       "maxDataPoints": 50,
@@ -13457,7 +12447,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 445
+        "y": 439
       },
       "id": 106,
       "panels": [],
@@ -13527,7 +12517,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 446
+        "y": 440
       },
       "id": 84,
       "options": {
@@ -13655,7 +12645,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 446
+        "y": 440
       },
       "id": 85,
       "options": {
@@ -13734,7 +12724,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 454
+        "y": 448
       },
       "id": 90,
       "maxDataPoints": 50,
@@ -13825,7 +12815,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 462
+        "y": 456
       },
       "id": 75,
       "panels": [],
@@ -13899,7 +12889,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 463
+        "y": 457
       },
       "id": 78,
       "options": {
@@ -14006,7 +12996,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 463
+        "y": 457
       },
       "id": 79,
       "options": {
@@ -14125,7 +13115,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 471
+        "y": 465
       },
       "id": 77,
       "options": {
@@ -14326,5 +13316,5 @@
   "timezone": "browser",
   "title": "Loki Metrics Dashboard",
   "uid": "24fd60b0-12e9-4572-bfea-d774bedf0c66",
-  "version": 2
+  "version": 1
 }

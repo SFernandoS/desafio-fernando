@@ -9,12 +9,15 @@ RUN pip install --no-cache-dir -r requirements.txt \
 COPY . .
 
 ENV OTEL_SERVICE_NAME=rules-service
+ENV OTEL_RESOURCE_ATTRIBUTES=service.name=rules-service,service.namespace=desafio
+
 ENV OTEL_TRACES_EXPORTER=otlp
 ENV OTEL_METRICS_EXPORTER=otlp
 ENV OTEL_LOGS_EXPORTER=otlp
 ENV OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
 ENV OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
 ENV OTEL_EXPORTER_OTLP_LOGS_PROTOCOL=grpc
+
 
 EXPOSE 8003
 

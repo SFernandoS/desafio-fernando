@@ -9,6 +9,8 @@ RUN pip install --no-cache-dir -r requirements.txt \
 COPY . .
 
 ENV OTEL_SERVICE_NAME=dice-service
+ENV OTEL_RESOURCE_ATTRIBUTES=service.name=dice-service,service.namespace=desafio
+
 ENV OTEL_TRACES_EXPORTER=otlp
 ENV OTEL_METRICS_EXPORTER=otlp
 ENV OTEL_LOGS_EXPORTER=otlp
